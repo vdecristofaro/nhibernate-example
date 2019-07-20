@@ -9,8 +9,10 @@ using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Dialect;
 using NHibernate.Driver;
+using NHibernate.Event;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Tool.hbm2ddl;
+using nhibernate_console.Listeners;
 using nhibernate_console.Mapping;
 
 namespace nhibernate_console {
@@ -27,6 +29,7 @@ namespace nhibernate_console {
                 } )
                 .ConfigureServices( ( hostContext, services ) => {
                     services.AddOptions();
+
                     services.AddSingleton<IHostedService, NhibernateService>();
 
                     var config = new Configuration();
@@ -47,6 +50,10 @@ namespace nhibernate_console {
                     SchemaMetadataUpdater.QuoteTableAndColumns( config, dialect );
                     SchemaValidator sv = new SchemaValidator( config );
                     sv.Validate();
+
+                    config.SetListener( ListenerType.PostInsert, new ExamplePostInsertEventListener() );
+                    config.SetListener( ListenerType.PostUpdate, new ExamplePostUpdateEventListener() );
+                    config.SetListener( ListenerType.PostDelete, new ExamplePostDeleteEventListener() );
 
                     var sessionFactory = config.BuildSessionFactory();
                     services.TryAddSingleton<ISessionFactory>( sessionFactory );

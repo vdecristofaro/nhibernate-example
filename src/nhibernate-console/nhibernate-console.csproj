@@ -27,14 +27,17 @@
         <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0" />
         <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.2.0" />
         <PackageReference Include="NHibernate" Version="5.2.5" />
+        <PackageReference Include="Domec.Platform.Core" Version="1.5.15" />
+        <PackageReference Include="Domec.Platform.Core.Nhibernate" Version="1.3.0" />
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="Mapping\" />
-      <Folder Include="Entities\" />
+        <Folder Include="Mapping\" />
+        <Folder Include="Entities\" />
+        <Folder Include="Listeners\" />
     </ItemGroup>
     <ItemGroup>
-      <None Update="appsettings.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
+        <None Update="appsettings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 </Project>

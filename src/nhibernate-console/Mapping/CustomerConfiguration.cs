@@ -32,10 +32,7 @@ namespace nhibernate_console.Mapping {
 
             Set<Site>( property => property.Sites,
                 collection => {
-                    collection.Table( "Sites" );
-                    collection.Fetch( CollectionFetchMode.Join );
-                    collection.Lazy( CollectionLazy.Lazy );
-                    collection.Cascade( Cascade.All.Include( Cascade.DeleteOrphans ) );
+                    collection.Cascade( Cascade.Persist.Include( Cascade.DeleteOrphans ) );
                     collection.Inverse( true );
                     collection.Key( keyMapping => {
                         keyMapping.Column( "CustomerID" );
